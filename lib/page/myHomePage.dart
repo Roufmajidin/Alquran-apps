@@ -10,18 +10,20 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hallo"),
+        title: const Text("Hallo"),
       ),
-      body: Center(child: FutureBuilder(builder: (context, snapshots) {
-        var showData = json.decode(snapshots.data.toString());
+      body: Center(child: FutureBuilder(builder: (context, snapshot) {
+        var showData = json.decode(snapshot.data.toString());
         return ListView.builder(
-          itemCount: showData.length,
+          
           itemBuilder: (BuildContext, int index) {
             return ListTile(
               title: Text(showData[index]['nama']),
-              subtitle: Text(showData[index]['type']),
+              trailing: Text(showData[index]['asma'], style: TextStyle(fontSize: 18),),
+              subtitle: Text(showData[index]['arti']),
             );
           },
+          itemCount: showData.length,
         );
       }, future: DefaultAssetBundle.of(context).loadString('assets/jsonData.json'),
       )
